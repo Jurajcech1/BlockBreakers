@@ -189,6 +189,18 @@ function drawBricks() {
     }
 }
 
+function drawBorders() {
+  ctx.beginPath();
+  ctx.strokeStyle = "rgba(255, 255, 255, 0.29";
+  ctx.lineWidth = "1";
+  ctx.moveTo(0,0);
+  ctx.lineTo(0, canvas.height+30);
+  ctx.moveTo(canvas.width,0);
+  ctx.lineTo(canvas.width, canvas.height+30);
+  ctx.stroke();
+  ctx.closePath();
+}
+
 function drawScore() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
@@ -241,6 +253,7 @@ function draw() {
     drawPaddle();
     drawScore();
     drawLives();
+    drawBorders();
     collisionDetection();
 
     if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
