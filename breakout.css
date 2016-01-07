@@ -3,8 +3,22 @@
   margin: 0;
 }
 
+html {
+  background: url(http://space-wallpapers.net/images/wallpapers/hubble-ultra-deep-field_full.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 canvas {
-  background: black;
+  background: "clear";
+  /*url(http://cdn.theatlantic.com/static/infocus/hubble120112/h01_hs201229.jpg) no-repeat center center fixed;*/
+  /*-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;*/
   display: block;
   margin: 0 auto;
+  padding: 100px 40px 100px 40px;
 }

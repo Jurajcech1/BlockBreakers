@@ -21,11 +21,14 @@ var brickOffsetLeft = 30;
 var score = 0;
 var lives = 3;
 var bricks = [];
+var level = 0;
+
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false);
 document.addEventListener("keypress", pauseHandler, false);
+document.addEventListener("keypress", levelHandler, false);
 
 function brickMaker() {
   for(c=0; c<brickColumnCount; c++) {
@@ -69,9 +72,38 @@ function pauseHandler(e) {
     draw();
   } else if(e.keyCode === 32 && gameStatus === "active") {
     gameStatus = "paused";
-  } else if(e.keyCode === 13) {
-    
   }
+}
+
+function levelHandler(e) {
+  if(e.keyCode === 13) {
+    draw();
+    document.removeEventListener("keypress", levelHandler, false);
+  } else if(e.keyCode === 49) {
+    mediumSettings();
+    draw();
+    document.removeEventListener("keypress", levelHandler, false);
+  } else if(e.keyCode === 50) {
+    hardSettings();
+    draw()
+    document.removeEventListener("keypress", levelHandler, false);
+  }
+}
+
+function mediumSettings() {
+  dx+=2;
+  dy-=2;
+  brickColumnCount = 6;
+  level+=2
+  brickMaker();
+}
+
+function hardSettings() {
+  dx+=3;
+  dy-=3;
+  brickColumnCount = 7;
+  level+=3
+  brickMaker();
 }
 
 function collisionDetection() {
@@ -97,12 +129,13 @@ function collisionDetection() {
 function positionResetter() {
   x = canvas.width/2;
   y = canvas.height-30;
-  dx = 3;
-  dy = -3;
+  dx = 2 + level;
+  dy = -2 - level;
   paddleX = (canvas.width-paddleWidth)/2;
 }
 
 function resetBricks() {
+  level++
   brickColumnCount++;
   score = 0;
   brickMaker();
@@ -145,7 +178,7 @@ function drawBricks() {
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
                 ctx.rect(brickX, brickY, brickWidth, brickHeight);
-                ctx.fillStyle = "rgba(152, 50, 87, 0.75)";
+                ctx.fillStyle = "rgb(158, 59, 98)";
                 ctx.strokeStyle = "green";
                 ctx.lineWidth = "3";
                 ctx.stroke();
@@ -166,6 +199,23 @@ function drawLives() {
     ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
     ctx.fillText("Lives: "+lives, canvas.width-65, 20);
+}
+
+function startScreen() {
+  ctx.beginPath();
+  ctx.rect(110, 140, 380, 300);
+  ctx.fillStyle = "rgba(255, 255, 255, 0.29)";
+  ctx.fill();
+  ctx.closePath();
+  ctx.font = "20px Arial";
+  ctx.fillStyle = "rgba(244, 67, 54, 0.8)";
+  ctx.fillText("WELCOME TO BLOCKBREAKERS!", canvas.width-460, 200);
+  ctx.font = "16px Arial";
+  ctx.fillText("Press Spacebar to pause in game", canvas.width-420, 300);
+  ctx.fillText("Use mouse or arrow keys to control paddle", canvas.width-450, 330);
+  ctx.fillText("Press enter to begin on easy mode", canvas.width-410, 360);
+  ctx.fillText("1 to begin on medium", canvas.width-380, 380);
+  ctx.fillText("Or 2 for hard mode!", canvas.width-370, 400);
 }
 
 function startCountdown() {
@@ -223,8 +273,7 @@ function draw() {
 }
 
 function beginGame() {
-  setTimeout(draw, 6000);
-  startCountdown();
+  startScreen();
 }
 
 beginGame();
