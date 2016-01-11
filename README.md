@@ -16,10 +16,10 @@ A version of the classic Breakout game in pure JavaScript.
 
 ## To Do
 ### Features
-- [x] Variable bouncing of ball depending upon paddle location struck
-- [x] Multiple ball mode
-- [x] Multiple paddle mode
-- [x] User-controlled ball release
+- [ ] Variable bouncing of ball depending upon paddle location struck
+- [ ] Multiple ball mode
+- [ ] Multiple paddle mode
+- [ ] User-controlled ball release
 
 ### UI
-- [x] Selection of various backgrounds
+- [ ] Selection of various backgrounds
